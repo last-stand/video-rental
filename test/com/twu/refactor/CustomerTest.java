@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringReader;
 
-import jdk.nashorn.internal.ir.Statement;
 import junit.framework.TestCase;
 
 public class CustomerTest extends TestCase {
@@ -30,16 +29,16 @@ public class CustomerTest extends TestCase {
 
     public void testEmpty() throws Exception {
     	dinsdale = new Customer("Dinsdale Pirhana");
-        equalsFile("1st Output", "outputEmpty", new TextStatement().getStatement(dinsdale, dinsdale.getRentalList()));
+        equalsFile("1st Output", "outputEmpty", new TextStatement(dinsdale).getStatement());
     }
 
     public void testCustomer() throws Exception {
-        equalsFile("1st Output", "output1", new TextStatement().getStatement(dinsdale, dinsdale.getRentalList()));
+        equalsFile("1st Output", "output1", new TextStatement(dinsdale).getStatement());
     }
 
     public void testChange() throws Exception {
     	la.setPriceCode(MoviePricingCategory.REGULAR);
-        equalsFile("1st Output", "outputChange", new TextStatement().getStatement(dinsdale, dinsdale.getRentalList()));
+        equalsFile("1st Output", "outputChange", new TextStatement(dinsdale).getStatement());
     }
 
     public void testHtml() throws Exception {

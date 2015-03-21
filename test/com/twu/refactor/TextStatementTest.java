@@ -4,10 +4,11 @@ import org.junit.Test;
 import java.util.List;
 import static org.junit.Assert.assertTrue;
 
-public class StatementTest {
+public class TextStatementTest {
     @Test
     public void testGetFooterLinesShouldGiveFooterLines() {
-        TextStatement ts = new TextStatement();
+        Customer customer = new Customer("Dinsdale");
+        TextStatement ts = new TextStatement(customer);
         String statement = ts.getFooterLines(13.5, 2);
         String expectedStatement = "Amount owed is 13.5\n" +
                 "You earned 2 frequent renter points";
@@ -16,8 +17,8 @@ public class StatementTest {
 
     @Test
     public void testGetHeaderGetsTheHeaderForCustomer() {
-        TextStatement ts = new TextStatement();
         Customer customer = new Customer("Dinsdale");
+        TextStatement ts = new TextStatement(customer);
         String statement = ts.getHeader(customer);
         String expectedStatement = "Rental Record for Dinsdale\n";
         assertTrue(expectedStatement.equals(statement));
@@ -25,8 +26,8 @@ public class StatementTest {
 
     @Test
     public void testGetStatementGetsTheStatement() {
-        TextStatement ts = new TextStatement();
         Customer customer = new Customer("Dinsdale Pirhana");
+        TextStatement ts = new TextStatement(customer);
         List<Rental> rentalList = customer.getRentalList();
         Movie python = new Movie("Monty Python and the Holy Grail", MoviePricingCategory.REGULAR);
         Movie ran = new Movie("Ran", MoviePricingCategory.REGULAR);
@@ -39,7 +40,7 @@ public class StatementTest {
         customer.addRental(new Rental (la, 2));
         customer.addRental(new Rental (trek, 1));
         customer.addRental(new Rental (wallace, 6));
-        String statement = ts.getStatement(customer, rentalList);
+        String statement = ts.getStatement();
         String expectedStatement = "Rental Record for Dinsdale Pirhana\n" +
                 "\tMonty Python and the Holy Grail\t3.5\n" +
                 "\tRan\t2.0\n" +

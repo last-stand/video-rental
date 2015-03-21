@@ -2,6 +2,8 @@ package com.twu.refactor;
 
 public class Rental {
 
+    private static final int BONUS_RENTER_POINTS = 2;
+    private static final int REGULAR_RENTER_POINTS = 1;
     public Movie movie;
     private int daysRented;
 
@@ -11,10 +13,11 @@ public class Rental {
     }
 
     public int getFrequentRentalPoints() {
-        int frequentRenterPoints = 1;
-        if (movie.isNewRelease() && daysRented > 1)
-            frequentRenterPoints++;
-        return frequentRenterPoints;
+        return isEligibleForBonusPoints() ? BONUS_RENTER_POINTS : REGULAR_RENTER_POINTS;
+    }
+
+    private boolean isEligibleForBonusPoints() {
+        return movie.isNewRelease() && daysRented > 1;
     }
 
     public double getRentalAmount() {
